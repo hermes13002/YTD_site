@@ -1,0 +1,21 @@
+databases:
+  - name: YTD_sitedb
+    plan: free
+    databaseName: YTD_site
+    user: YTD_site
+
+services:
+  - type: web
+    plan: free
+    name: YTD_site
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn YTD_site.asgi:application -k uvicorn.workers.UvicornWorker"    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: YTD_sitedb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
