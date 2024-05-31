@@ -10,12 +10,13 @@ services:
     name: YTD_site
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn YTD_site.asgi:application -k uvicorn.workers.UvicornWorker"
-    - key: DATABASE_URL
-      fromDatabase:
-        name: YTD_sitedb
-        property: connectionString
-    - key: SECRET_KEY
-      generateValue: true
-    - key: WEB_CONCURRENCY
-      value: 4
+    startCommand: "python -m gunicorn YTD_site.asgi:application -k uvicorn.workers.UvicornWorker"    
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: YTD_sitedb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
