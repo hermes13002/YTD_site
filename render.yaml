@@ -1,8 +1,8 @@
 databases:
-  - name: YTD_sitedb
+  - name: mysitedb
     plan: free
-    databaseName: YTD_site
-    user: YTD_site
+    databaseName: mysite
+    user: mysite
 
 services:
   - type: web
@@ -14,7 +14,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: YTD_sitedb
+          name: mysitedb
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
